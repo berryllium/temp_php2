@@ -1,0 +1,37 @@
+<main>
+
+    <!-- вывод одного изображения -->
+
+    {% if isSingle == true %}
+
+    <div class="single">
+        <div class="text">
+            <h1>{{items.title}}</h1>
+            <h2 class="rating">Количество просмотров: <span>{{items.rating}}</span></h2>
+        </div>
+        <img width="100%" class="single-image" src="{{items.path_big}}" alt="{{items.title}}" />
+    </div>
+
+
+
+    <!-- вывод всей галереи -->
+    {% else %}
+    <div class="gallery">
+
+        {% for item in items %}
+        <div class="item">
+            <a class="example-image-link" href="index.php?id={{item.id}}" data-lightbox="example-set">
+                <img class="example-image" src="{{item.path_small}}" alt="{{item.title}}" />
+            </a>
+            <div class="view">Просмотров: {{item.rating}}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="form">
+        <form action="engine/upload_photo.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="photo" id="photo" accept="image/jpeg">
+            <input type="submit" value="Загрузить">
+        </form>
+    </div>
+    {% endif %}
+</main>

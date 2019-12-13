@@ -4,26 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Пегий дудочник</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="views/css/style.css">
 </head>
 
 <body>
     <div class="container container-main">
-        <div class="header"> <a href="index.html" class="logo">Пегий дудочник</a>
+        <div class="header"> <a href="?page=home" class="logo">Пегий дудочник</a>
             <ul class="menu">
                 <li><a href="?page=home">Главная</a></li>
                 <li><a href="?page=catalog">Каталог</a></li>
                 <li><a href="?page=contacts">Контакты</a></li>
-                <?php if ($_SESSION['login'] == 'admin') : ?>
+                {% if (isAdmin) %}
                     <li><a href="?page=admin">Управление</a></li>
-                <?php else : ?>
+                {% else %}
                     <li><a href="?page=cart">Корзина</a></li>
-                <?php endif; ?>
-                <?php if ($_SESSION['login']) : ?>
-                    <li><a href="index.php?exit=true">Выход</a></li>
-                <?php else : ?>
+                {% endif %}
+                {% if (login) %}
+                    <li><a href="index.php?exit=true">Выход ({{login}})</a></li>
+                {% else %}
                     <li><a href="index.php?page=login">Вход</a></li>
-                <?php endif; ?>
+                {% endif %}
             </ul>
         </div>
         <div class="content">

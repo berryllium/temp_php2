@@ -1,35 +1,23 @@
 <?php
-
+require_once('models/SQL.php');
+require_once('models/functions.php');
+// Создаем единственный экземпляр класса для работы с БД
+$db = SQL::Instance();
 // Подгружаем и активируем автозагрузчик Twig-а
 require_once 'Twig/Autoloader.php';
 Twig_Autoloader::register();
 try {
   // Указывает, где хранятся шаблоны
-  $loader = new Twig_Loader_Filesystem('templates');
+  $loader = new Twig_Loader_Filesystem('views');
   // Инициализируем Twig
   $twig = new Twig_Environment($loader);
   // Подгружаем шаблоны
-  $header = $twig->loadTemplate('header.tmpl');
-  $content = $twig->loadTemplate('content.tmpl');
-  $footer = $twig->loadTemplate('footer.tmpl');
+  $header = $twig->loadTemplate('v_header.tmpl');
+  $footer = $twig->loadTemplate('v_footer.tmpl');
 
-  // получаем массив для контента
-  require_once('engine/get_photo.php');
-  $items = get_photo($connection);
-  $isSingle = isset($_GET['id']);
+  //передаем управление роутеру
+  require_once('controllers/c_router.php');
 
-  // Передаем в шаблон переменные и значения
-  // Выводим сформированное содержание
-  echo $header->render(array(
-    'title' => 'Галерея',
-  ));
-  echo $content->render(array(
-    'items' => $items,
-    'isSingle' => $isSingle,
-  ));
-  echo $footer->render(array(
-    'name' => 'Подвал сайта'
-  ));
 } catch (Exception $e) {
   die('ERROR: ' . $e->getMessage());
 }

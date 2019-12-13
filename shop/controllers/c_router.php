@@ -53,10 +53,13 @@ switch ($page) {
         $catalog->removeProduct($id_prod);
         $data = array('products' => $catalog->getAll());
         $view = 'v_catalog.tmpl';
-      }
-      if ($act == 'edit') {
-        $catalog->editProduct($_POST, $_FILES);
+      } elseif ($act == 'edit') {
+        $catalog->updateProduct($_POST, $_FILES);
         $data = $catalog->getProduct($id_prod);
+        $view = 'v_product.tmpl';
+      } elseif ($act == 'add') {
+        $id = $catalog->addProduct($_POST, $_FILES);
+        $data = $catalog->getProduct($id);
         $view = 'v_product.tmpl';
       } else {
         $data = $catalog->getProduct($id_prod);
@@ -75,6 +78,7 @@ switch ($page) {
     }
   case 'admin': {
       $view = 'v_admin.tmpl';
+      $data = array('isAdmin' => $isAdmin);
       break;
     }
   default: {

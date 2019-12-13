@@ -47,10 +47,22 @@ switch ($page) {
       break;
     }
   case 'product': {
-      $view = 'v_product.tmpl';
       require_once('models/Catalog.php');
       $catalog = new Catalog($db);
-      $data = $catalog->getProduct($id_prod);
+      if ($act == 'del') {
+        $catalog->removeProduct($id_prod);
+        $data = array('products' => $catalog->getAll());
+        $view = 'v_catalog.tmpl';
+      }
+      if ($act == 'edit') {
+        $catalog->editProduct($_POST, $_FILES);
+        $data = $catalog->getProduct($id_prod);
+        $view = 'v_product.tmpl';
+      } else {
+        $data = $catalog->getProduct($id_prod);
+        $view = 'v_product.tmpl';
+      }
+      $data['isAdmin'] = $isAdmin;
       break;
     }
   case 'cart': {

@@ -81,7 +81,7 @@
 			return $this->db->lastInsertId();
 		}
 		
-		public function Update($table, $object, $where) {
+		public function Update($table, $object, $where_key, $where_value) {
 			
 			$sets = array();
 			 
@@ -95,7 +95,7 @@
 			 }
 			 
 			$sets_s = implode(',',$sets);
-			$query = "UPDATE $table SET $sets_s WHERE $where";
+			$query = "UPDATE $table SET $sets_s WHERE $where_key = $where_value";
 
 			$q = $this->db->prepare($query);
 			$q->execute($object);
@@ -109,9 +109,9 @@
 		}
 		
 		
-		public function Delete($table, $where) {
+		public function Delete($table, $where_key, $where_value) {
 			
-			$query = "DELETE FROM $table WHERE $where";
+			$query = "DELETE FROM $table WHERE $where_key = $where_value";
 			$q = $this->db->prepare($query);
 			$q->execute();
 			

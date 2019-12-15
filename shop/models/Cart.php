@@ -8,7 +8,7 @@ class Cart
   }
   public function getBuy($id_prod)
   {
-    return $this->db->CompositeQuery("SELECT FROM `cart` WHERE `id_prod` = $id_prod AND `id_user` = $this->user");
+    return $this->db->CompositeQuery("SELECT * FROM `cart` WHERE `id_prod` = $id_prod AND `id_user` = $this->user");
   }
   public function getUserCart()
   {
@@ -20,7 +20,7 @@ class Cart
     if ($buy) {
       $buy['count']++;
       $this->db->Update('cart', $buy, 'id', $buy['id']);
-    } else $this->db->Insert('cart', ['id_user' => $this->user, 'id_prod' => $id_prod]);
+    } else $this->db->Insert('cart', ['id_user' => $this->user, 'id_prod' => $id_prod, 'count' => '1']);
   }
   public function removeProduct($id_prod)
   {

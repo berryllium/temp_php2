@@ -12,24 +12,23 @@
 </div>
 <a href="#" data-login="<?= $_SESSION['login'] ?>" onclick="order(event)" class="button" id="order">Оформить</a>
 <script>
-  function rem(event) {
-    id = event.target.dataset.id
-    $.post("model/cart.php", {
-        id: id
-      })
-      .done(function(data) {
-        window.location = "index.php?page=cart";
-      });
-  }
+  // function rem(event) {
+  //   id = event.target.dataset.id
+  //   $.post("model/cart.php", {
+  //       id: id
+  //     })
+  //     .done(function(data) {
+  //       alert('товар удален');
+  //     });
+  // }
 
-  function order(event) {
-    login = event.target.dataset.login
-    $.post("model/cart.php", {
-        login: login
-      })
-      .done(function(data) {
-        alert(data);
-        window.location = "index.php?page=catalog";
-      });
-  }
+  // function order(event) {
+  //   login = event.target.dataset.login
+  //   $.post("model/cart.php", {
+  //       login: login
+  //     })
+  //     .done(function(data) {
+  //       alert('товар добавлен');
+  //     });
+  // }
 </script>

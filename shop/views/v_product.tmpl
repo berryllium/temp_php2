@@ -41,12 +41,12 @@
 
 <script>
     function buy(event) {
-        $.post('model/cart.php', {
+        $.post('index.php?page=cart', {
             id: event.target.dataset.id,
-            quantity: 1
+            act: 'add'
         })
             .done(data => {
-                alert('Товар добавлен в корзину')
+                alert('Товар добавлен в корзину!')
             })
     }
 </script>

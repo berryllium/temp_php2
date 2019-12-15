@@ -130,7 +130,7 @@
 				die($info[2]);
 			}
 			
-			return $q->rowCount();
+			return $q->fetch();
 		}
 	}
 ?>

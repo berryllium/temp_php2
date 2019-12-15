@@ -122,10 +122,15 @@
 			
 			return $q->rowCount();
 		}
-
-		public function Password ($name, $password) {
+		public function CompositeQuery($query) {
+			$q = $this->db->prepare($query);
+			$q->execute();
+			if ($q->errorCode() != PDO::ERR_NONE) {
+				$info = $q->errorInfo();
+				die($info[2]);
+			}
 			
-			return strrev(md5($name)) . md5($password);
+			return $q->rowCount();
 		}
 	}
 ?>

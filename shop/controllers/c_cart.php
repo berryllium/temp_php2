@@ -6,11 +6,17 @@ $catalog = new Catalog();
 if (isset($_POST['id'])) $prod_id = $_POST['id'];
 if ($_POST['act'] == 'add') {
   $cart->addProduct($prod_id);
-} elseif ($_POST['act'] == 'del') {
-  $cart->removeProduct($prod_id);
+} elseif ($_GET['act'] == 'del') {
+  $cart->removeProduct($_GET['id']);
+} elseif ($_GET['act'] == 'add') {
+  $cart->addProduct($_GET['id']);
+} elseif ($_GET['act'] == 'order') {
+  $cart->Order();
 }
 $products = [];
-// print_r($cart->getUserCart());
 foreach ($cart->getUserCart() as $k => $v) {
-  $products[] = $catalog->getProduct($v['id']);
+  $product = $catalog->getProduct($v['id_prod']);
+  $product['count'] = $v['count'];
+  $products[] = $product;
 }
+$data = array('cart' => $products);

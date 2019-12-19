@@ -34,13 +34,11 @@ switch ($page) {
     }
   case 'product': {
       require_once('controllers/c_catalog.php');
-      $data['isAdmin'] = $isAdmin;
       break;
     }
   case 'cart': {
       require_once('controllers/c_cart.php');
       $view = 'v_cart.tmpl';
-      $data['cart'] = $products;
       break;
     }
   case 'contacts': {
@@ -58,6 +56,7 @@ switch ($page) {
     }
 }
 
+$data['isAdmin'] = $isAdmin;
 
 $content = $twig->loadTemplate($view);
 

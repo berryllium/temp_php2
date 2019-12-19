@@ -1,34 +1,22 @@
-<div class="cart-wrap">
+{% if cart is empty %}
+<h3>Корзина пуста!</h3>
+
+{%else %}
+<table class="cart-wrap">
   {% for product in cart %}
-    <div class="cart-item">
-      <img src="{{product.path_small}}" alt="{{product.title}}">
+  <tr class="cart-item">
+    <td><img src="{{product.path_small}}" alt="{{product.title}}"></td>
+    <td>
       <div class="name">{{product.title}}</div>
+    </td>
+    <td>
       <div class="count">{{product.count}}</div>
-      <a href="#" class="button" onclick="rem(event)" data-id="<?= $product['id'] ?>">&times;</a>
-    </div>
+    </td>
+    <td><a href="?page=cart&act=del&id={{product.id}}" class="button">Удалить</a></td>
+    <td><a href="?page=cart&act=add&id={{product.id}}" class="button">Добавить</a></td>
+  </tr>
   {% endfor %}
   <br>
-
-</div>
-<a href="#" data-login="<?= $_SESSION['login'] ?>" onclick="order(event)" class="button" id="order">Оформить</a>
-<script>
-  // function rem(event) {
-  //   id = event.target.dataset.id
-  //   $.post("model/cart.php", {
-  //       id: id
-  //     })
-  //     .done(function(data) {
-  //       alert('товар удален');
-  //     });
-  // }
-
-  // function order(event) {
-  //   login = event.target.dataset.login
-  //   $.post("model/cart.php", {
-  //       login: login
-  //     })
-  //     .done(function(data) {
-  //       alert('товар добавлен');
-  //     });
-  // }
-</script>
+</table>
+<a href="?page=cart&act=order" class="button" id="order">Оформить</a>
+{% endif %}

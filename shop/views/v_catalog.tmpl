@@ -5,6 +5,11 @@
         <a href="index.php?page=product&id={{ product.id }}">
             <img src="{{ product.path_small }}" alt="{{ product['title'] }}">
             <p>{{ product.title }}</p>
+            {% if isAdmin %}
+            <a href="?page=product&act=del&id={{ product.id }}" class="button">Удалить</a>
+            {% else %}
+            <a href="#" class="button" onclick="buy(event)" data-id="{{ product.id }}">Купить</a>
+            {% endif %}
         </a>
     </div>
     {% endfor %}
@@ -12,10 +17,13 @@
 </div>
 
 <script>
-    // let catalog = document.querySelector('.catalog')
-    // let limit = 3
-    // let start = 0
-    // setTimeout(() => {
-    //     getMore()
-    // }, 200);
+    function buy(event) {
+        $.post('index.php?page=cart', {
+            id: event.target.dataset.id,
+            act: 'add'
+        })
+            .done(data => {
+                alert('Товар добавлен в корзину!')
+            })
+    }
 </script>
